@@ -1,0 +1,24 @@
+25/05/2023
+-Installation and requirements of laravel.
+-created example-app (using command: composer create-project laravel/laravel example-app).
+-run example app (using command: php artisan serve).
+
+26/05/2023
+-Configuration.
+    -Initial Configuration.
+    -Environment Based Configuration.
+    -Databases & Migrations.
+    -Directory Configuration.
+
+29/05/2023
+  -Request Lifecycle
+    -Introduction
+    -Lifecycle Overview
+      -First Steps
+      -HTTP / Console Kernels
+      -Service Providers
+      -Routing
+  -Configuration
+  -Directory Structure
+  -Frontend
+  -Service Container

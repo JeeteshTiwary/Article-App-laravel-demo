@@ -1,5 +1,5 @@
 <center> <small> Form Example in Laravel </small> </center>
-@if($_GET['msg'])
+@if(isset($_GET['msg']))
     <div class="alert alert-warning">
         <strong> Warning! </strong> {{$_GET['msg']}}
     </div>

@@ -19,6 +19,61 @@
       -Service Providers
       -Routing
   -Configuration
+    -Introduction
+    -Environment Configuration
+      -Environment File Security
+      -Additional Environment Files
+      
   -Directory Structure
   -Frontend
   -Service Container
+
+30/05/2023
+Todo:
+  Knowledge upgrade in Laravel
+  -Configuration
+ Environment Configuration
+ Environment Variable Types
+ Retrieving Environment Configuration
+ Determining The Current Environment
+ Encrypting Environment Files
+ Accessing Configuration Values
+ Configuration Caching
+ Debug Mode
+ Maintenance Mode
+  -Directory Structure
+    Introduction
+    The Root Directory
+      -The app Directory
+      -The bootstrap Directory
+      -The config Directory
+      -The database Directory
+      -The public Directory
+      -The resources Directory
+      -The routes Directory
+      -The storage Directory
+      -The tests Directory
+      -The vendor Directory
+    The App Directory
+      -The Broadcasting Directory
+      -The Console Directory
+      -The Events Directory
+      -The Exceptions Directory
+      -The Http Directory
+      -The Jobs Directory
+      -The Listeners Directory
+      -The Mail Directory
+      -The Models Directory
+      -The Notifications Directory
+      -The Policies Directory
+      -The Providers Directory
+      -The Rules Directory
+
+31/05/2023
+Todo:
+  Knowledge upgrade in Laravel
+  -Directory Structure(remaining topics)
+  -Frontend
+  -Service Container
+
+

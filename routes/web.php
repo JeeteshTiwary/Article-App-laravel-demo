@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\testController;
+use App\Http\Controllers\greeting;
+use App\Http\Controllers\FormExample;
+// use App\Http\Controllers\count;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +20,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+ 
+if (View::exists('about')) {
+    Route::view("/about","about");
+}
+
+Route::view("/test","test");
+Route::view("/count","count");
+// Route::view("test.check","/view");
+
+Route::get("/testController/{name}",[TestController::class,'show']);
+Route::get("/greet/{name}",[Greeting::class,'greet']);
+// Route::get("/count",[count::class,'count']);
+
+Route::post("/form",[FormExample::class,'getData']);
+Route::view("/form","form");

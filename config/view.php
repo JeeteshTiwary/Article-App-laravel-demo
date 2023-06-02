@@ -15,7 +15,10 @@ return [
 
     'paths' => [
         resource_path('views'),
+        resource_path('customviews'),
+        public_path(),
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -32,5 +35,5 @@ return [
         'VIEW_COMPILED_PATH',
         realpath(storage_path('framework/views'))
     ),
-
+    
 ];

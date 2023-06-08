@@ -15,5 +15,4 @@
     Something went wrong
 @endif
 
-<!-- @include('count') -->
 <x-footer />

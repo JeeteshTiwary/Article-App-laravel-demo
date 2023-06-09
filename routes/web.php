@@ -11,6 +11,7 @@ use App\Http\Controllers\flashSessionDemo;
 use App\Http\Controllers\fileUploadDemo;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\userList;
+use App\Http\Controllers\QueryBuilderDemo;
 // use App\Http\Controllers\count;
 
 /*
@@ -91,3 +92,8 @@ Route::get("/userlist",[userList::class,"show"]);
 
 Route::view("/addUser","addUser");
 Route::post("/addUser",[userList::class,"add"]);
+Route::get("/delete/{id}",[userList::class,"delete"]);
+Route::get("/update/{id}",[userList::class,"showData"]);
+Route::post("/update/{id}",[userList::class,"update"]);
+
+Route::get("/QueryBuilderDemo/{id}",[QueryBuilderDemo::class,'QueryBuilder']);

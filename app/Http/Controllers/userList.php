@@ -23,4 +23,24 @@ class userList extends Controller
         $request->session()->flash("name",$user->name);
         return redirect('userlist');
     }
+    function delete($id){
+        $data=user::find($id);
+        $data->delete();
+        session()->flash("msg","Record has been deleted!!");
+        return redirect('userlist');
+    }
+    function update(Request $request,$id){
+        $data = user::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->phone_number = $request->phone_number;
+        $data->save();
+        session()->flash("msg","Record has been updated!!");
+        return redirect('userlist');
+    }  
+    function showData($id){
+        $data=user::find($id);
+    //    die($data);
+        return view('updateUser',['user'=>$data]);
+    }  
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\fileUploadDemo;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\userList;
 use App\Http\Controllers\QueryBuilderDemo;
+use App\Mail\testMail;
 // use App\Http\Controllers\count;
 
 /*
@@ -33,9 +34,17 @@ if (View::exists('about')) {
     Route::view("/about","about");
 }
 
+Route::get('/user/{id}', function (string $id) {
+    return 'User '.$id;
+})->where('id', '[0-9]+');
+
+// Route::get('/user/{name?}', function (string $name = 'Jeetesh') {
+//     return $name;
+// });
+
 Route::view("/test","test");
 Route::view("/count","count");
-// Route::view("test.check","/view");
+Route::view("/view","test.check");
 
 Route::get("/testController/{name}",[TestController::class,'show']);
 // Route::get("/greet/{name}",[Greeting::class,'greet']);
@@ -97,3 +106,15 @@ Route::get("/update/{id}",[userList::class,"showData"]);
 Route::post("/update/{id}",[userList::class,"update"]);
 
 Route::get("/QueryBuilderDemo/{id}",[QueryBuilderDemo::class,'QueryBuilder']);
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail from jmt',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('jmt@narola.email')->send(new testMail($details));
+   
+    // dd("Email is Sent.");
+});

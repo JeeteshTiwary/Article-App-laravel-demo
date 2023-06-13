@@ -116,5 +116,5 @@ Route::get('send-mail', function () {
    
     \Mail::to('jmt@narola.email')->send(new testMail($details));
    
-    // dd("Email is Sent.");
+    echo ("Email is Sent.");
 });

@@ -48,10 +48,5 @@
                 {{$users->links()}}
             </div>
         </center> 
-        <style>
-            .w-5{
-                display:none;
-            }
-        </style>
     </body>
 </html>

@@ -24,6 +24,7 @@
                 <h1 class="display-4 mx-3">Register Here</h1>
                 <hr>
                 <form name="SignupForm" action="addUser" method="post">
+                    {{method_field('POST')}}
                     @csrf
                     <div class="form-group col-md-6">
                         <label for="name">Name</label>
@@ -49,15 +50,16 @@
                             <span class="text-danger"> {{$errors->first('password')}} </span>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="cnfPassword">Confirm Password</label>
-                        <input type="password" class="form-control" id="cnfPassword" name="cnfpassword" 
-                            placeholder="confirm the password" >
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" 
+                            placeholder="confirm the password" required>
                         <div> <small> <i>confirm password should be same as the entered password</i> </small> </div>
                         <span class="text-danger"> {{$errors->first('cnfpassword')}} </span>
                     </div>
                     <div class="form-group form-check mx-3">
-                        <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox" value="1" checked required>
+                        <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox" value="1">
                         <label class="form-check-label" for="checkbox">Check me out</label>
+                        <span class="text-danger"> {{$errors->first('checkbox')}} </span>
                     </div>
                     <div>
                             <button type="submit" class="btn btn-outline-primary mx-3">Register</button>

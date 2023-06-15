@@ -95,8 +95,8 @@ Route::post("/flashSession",[flashSessionDemo::class,'flash']);
 Route::view("/fileUploadDemo","fileUploadDemo");
 Route::post("/fileUpload",[fileUploadDemo::class,'upload']);
 
-Route::view("/login","loginForm");
-Route::view("/profile","profile");
+// Route::view("/login","loginForm");
+// Route::view("/profile","profile");
 Route::post("/user",[loginController::class,'login']);
 Route::get("/logout",function(){
     if(session()->has('name')){
@@ -122,14 +122,6 @@ Route::get("/home/{lang}",function($lang){
     return view("home");
 });
 
-Route::get("/userlist",[userList::class,"show"]);
-
-Route::view("/addUser","addUser");
-Route::post("/addUser",[userList::class,"add"]);
-Route::get("/delete/{id}",[userList::class,"delete"]);
-Route::get("/update/{id}",[userList::class,"showData"]);
-Route::post("/update/{id}",[userList::class,"update"]);
-
 Route::get("/QueryBuilderDemo/{id}",[QueryBuilderDemo::class,'QueryBuilder']);
 
 Route::get('send-mail', function () {
@@ -143,3 +135,25 @@ Route::get('send-mail', function () {
    
     echo ("Email is Sent.");
 });
+
+
+Route::view("/addUser","addUser");
+Route::post("/addUser",[userList::class,"add"]);
+
+if(!session()->has('email')){
+    Route::view("/login","loginForm");
+    Route::post("/login",[userList::class,"login"]);
+}else{
+    return Route::get("/userlist",[userList::class,"show"]);
+}
+
+if(session()->has('email')){
+    Route::get("/userlist",[userList::class,"show"]);
+    Route::get("/delete/{id}",[userList::class,"delete"]);
+    Route::get("/update/{id}",[userList::class,"showData"]);
+    Route::post("/update/{id}",[userList::class,"update"]);
+}else{
+    // return redirect("/login");
+}
+
+include 'auth.php';

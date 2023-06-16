@@ -6,7 +6,7 @@ use App\Http\Controllers\testController;
 use App\Http\Controllers\greeting;
 use App\Http\Controllers\FormExample;
 use App\Http\Controllers\user;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\httpClientDemo;
 use App\Http\Controllers\flashSessionDemo;
 use App\Http\Controllers\fileUploadDemo;
@@ -53,7 +53,7 @@ require __DIR__.'/auth.php';
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+
  
 if (View::exists('about')) {
     Route::view("/about","about");
@@ -155,5 +155,6 @@ if(session()->has('email')){
 }else{
     // return redirect("/login");
 }
+*/
 
-include 'auth.php';
+Route::resource('user', UserController::class);

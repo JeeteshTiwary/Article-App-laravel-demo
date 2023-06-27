@@ -20,8 +20,8 @@
 
             <!-- article Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('article.create')" :active="request()->routeIs('article.create')">
-                        {{ __('Add Article') }}
+                    <x-nav-link :href="route('article.index')" :active="request()->routeIs('article')">
+                        {{ __('Articles') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -77,39 +77,6 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-    <!-- Add new article -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('article.create')" :active="request()->routeIs('article.create')">
-                {{ __('Add article') }}
-            </x-responsive-nav-link>
-        </div>
-
-    <!-- show articles list -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('article/{id}')" :active="request()->routeIs('article')">
-                {{ __('Show articles') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Edit article 
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('article')" :active="request()->routeIs('article')">
-                {{ __('Update article') }}
-            </x-responsive-nav-link>
-        </div>
-        
-
-        <!-- Delete article
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('article')" :active="request()->routeIs('article')">
-                {{ __('Delete article') }}
             </x-responsive-nav-link>
         </div>
 

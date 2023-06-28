@@ -3,10 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;  
+use Request;
 
-class user extends Model
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
-    // public $table="todos";
+    use Notifiable;
+    protected $fillable = [
+        'name',
+        'email', 
+        'phone_number', 
+        'password',
+    ];
 }

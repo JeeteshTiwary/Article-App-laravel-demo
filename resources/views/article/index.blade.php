@@ -48,35 +48,40 @@
                                 <h2 class="h2"> My Articles </h2>
                                 <a class="btn btn-outline-success" href="{{ Route('article.create') }}">Add Article</a>
                             </div>
-                            <table class="table table-striped">
-                                <thead class="table-dark">
-                                    <th> Sr.no. </th>
-                                    <th> Title </th>
-                                    <th> Description </th>
-                                    <th> Image </th>
-                                    <th> Operations </th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($articles as $key => $article)
-                                        <tr>
-                                            <td> {{ ++$key }} </td>
-                                            <td> {{ $article['title'] }} </td>
-                                            <td> {{ $article['description'] }} </td>
-                                            <td><img src="{{ base_path() }}/storage/app/public/images/articles/images/{{ $article['image'] }}" style="height:100px;width:100px;">  </td>
-                                            <td class="d-flex">
-                                                <a href="{{ route('article.edit', $article->id) }}"
-                                                    class="mr-md-3 btn btn-outline-info"> Update </a>
-                                                <form method="post"
-                                                    action="{{ route('article.destroy', $article->id) }}">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button class="btn btn-outline-danger">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            @if ($articles[0])
+                                <table class="table table-striped">
+                                    <thead class="table-dark">
+                                        <th> Sr.no. </th>
+                                        <th> Title </th>
+                                        <th> Description </th>
+                                        <th> Image </th>
+                                        <th> Operations </th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($articles as $key => $article)
+                                            <tr>
+                                                <td> {{ ++$key }} </td>
+                                                <td> {{ $article['title'] }} </td>
+                                                <td> {{ $article['description'] }} </td>
+                                                <td><img src="{{ asset('articles/images/' . $article->image) }}"
+                                                        alt="Image" style="height:100px;width:100px;"> </td>
+                                                <td class="d-flex">
+                                                    <a href="{{ route('article.edit', $article->id) }}"
+                                                        class="mr-md-3 btn btn-outline-info"> Update </a>
+                                                    <form method="post"
+                                                        action="{{ route('article.destroy', $article->id) }}">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn btn-outline-danger">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                No articles found!
+                            @endif
                         </div>
                         <div>
                             {{ $articles->links() }}

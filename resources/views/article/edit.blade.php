@@ -15,7 +15,7 @@
         <div class="">
             <h1 class="display-4 mx-3">Update Article</h1>
             <hr>
-            <form name="" action="{{ route('article.update', ['article' => $article]) }}" method="post">
+            <form name="" action="{{ route('article.update', ['article' => $article]) }}" method="post" enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
                 <div class="form-group col-md-6">

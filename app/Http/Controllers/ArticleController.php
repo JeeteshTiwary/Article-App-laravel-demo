@@ -14,11 +14,24 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Article::paginate(5);
-        return view('article.index', ['articles' => $data]);
+        $search = $request->query('search');
+        $sort = $request->query('sort', 'asc');
+        $query = Article::query();
+        // dd($request);
+        if ($search) {
+            $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        }
+
+        $query->orderBy('title', $sort);
+
+        $articles = $query->paginate(5);
+
+        return view('article.index', compact('articles', 'search', 'sort'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +58,7 @@ class ArticleController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
-            $path = public_path() . '/articles/images';
+            $path = public_path('articles/images');
             $uplaod = $file->move($path, $fileName);
         }
 
@@ -85,33 +98,29 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|between:3,191',
             'description' => 'required|min:20',
-            'image' => 'required',//|image',
+            'image' => 'required',
+            //|image',
             'checkbox' => 'required',
         ]);
 
-        $article = Article::find($article->id);
-        $imageToDelete = public_path('articles/images/').$article->image;
-        // dd($imageToDelete);
-        dd($request);
+        $article->title = $request->input('title');
+        $article->description = $request->input('description');
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
-            $path = public_path().'/articles/images';
-            dd($path);
-            $uplaod = $file->move($path, $fileName);
-            dd($fileName);
+            $path = public_path('articles/images/');
+            $file->move($path, $fileName);
+
+            if ($article->image && file_exists($path . '/' . $article->image)) {
+                unlink($path . '/' . $article->image);
+            }
+
+            $article->image = $fileName;
         }
 
-        $article->title = $request->title;
-        $article->description = $request->description;
-        // $article->image = $fileName;
         $article->save();
-
-        if (file_exists($imageToDelete)) {
-            // unlink($imageToDelete);
-            dd('file found');
-        }
 
         session()->flash("msg", "Record has been updated!!");
         return redirect('article');
@@ -123,9 +132,9 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         $article = Article::find($id);
-        $imageToDalete = public_path() . '/articles/images/' . $article->image;
-        if (file_exists($imageToDalete)) {
-            unlink($imageToDalete);
+        $path = public_path('articles/images/');
+        if (file_exists(file_exists($path . '/' . $article->image))) {
+            unlink($path . '/' . $article->image);
         }
         $delete = $article->delete();
         session()->flash("msg", "Record has been deleted!!");

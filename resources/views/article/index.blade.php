@@ -59,7 +59,7 @@
                                 </div>
                             </form>
 
-                            <table class="table table-striped">
+                            <table class="table table-striped table-responsive{-sm|-md|-lg|-xl}">
                                 <thead class="table-dark">
                                     <th> Sr.no. </th>
                                     <th>

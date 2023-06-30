@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/authentication/request', function () {
+    return view('sendOTP');
+});
+Route::get('/authentication', function () {
+    return view('verifyOTP');
+});
+
+Route::post('/authentication/request',[AuthenticationController::class,'sendOTP'])->name('authentication.request');
+Route::post('/authentication')->name('authentication.verify');

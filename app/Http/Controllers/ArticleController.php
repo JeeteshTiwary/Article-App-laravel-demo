@@ -137,7 +137,9 @@ class ArticleController extends Controller
             unlink($path . '/' . $article->image);
         }
         $delete = $article->delete();
-        session()->flash("msg", "Record has been deleted!!");
-        return redirect('article');
+        if ($delete) {
+            session()->flash("msg", "Record has been deleted!!");
+            return redirect('article');
+        }
     }
 }

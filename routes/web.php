@@ -35,11 +35,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/authentication/request', function () {
-    return view('sendOTP');
-});
-Route::get('/authentication', function () {
-    return view('verifyOTP');
+    return view('authentication.sendOTP');
 });
 
 Route::post('/authentication/request',[AuthenticationController::class,'sendOTP'])->name('authentication.request');
-Route::post('/authentication')->name('authentication.verify');
+Route::post('/authentication/verification',[AuthenticationController::class,'verifyOTP'])->name('authentication.verify');
+Route::post('/authentication/password',[AuthenticationController::class,'verifyPassword'])->name('authentication.password');

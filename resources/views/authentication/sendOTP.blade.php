@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <title> Authenticate User | Laravel Demo</title>
+    <title>User Authentication | Laravel Demo</title>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="jumbotron col-md-6">
 
-            @if (\Session::has('msg'))
+            @if (Session::has('msg'))
                 <div class="alert alert-danger" role="alert">
-                    <span> <strong> Oops! </strong> {{ \Session::get('msg') }} </span>
+                    <span> <strong> Oops! </strong> {{ Session::get('msg') }} </span>
                 </div>
             @endif
 

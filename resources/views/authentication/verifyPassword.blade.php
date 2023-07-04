@@ -13,12 +13,20 @@
 <body>
     <div class="container mt-5">
         <div class="jumbotron">
-            @if (Session::has('msg'))
+
+            <div class="col-md-9">
+                <h2> Password Verification </h2>
+                {{ 'Enter your password for Authentication.' }}
+                <hr>
+            </div>
+
+            @if (session('msg'))
                 <div class="alert alert-danger" role="alert">
-                    <span> <strong> Oops! </strong> {{ Session::get('msg') }} </span>
+                    <span> <strong> {{ $msg }} !! </strong> {{ 'Enter the password of your account.' }} </span>
                 </div>
             @endif
-            <form class="form-inline" action="{{ Route('authentication.password')}}" method="post">
+
+            <form class="form-inline col-md-6" action="{{ Route('authentication.password') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="form-group mb-2">
@@ -28,8 +36,9 @@
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="password" class="sr-only">Password </label>
-                    <input type="text" class="form-control" id="password" name="password" placeholder="enter password">
-                    <span class="text-danger"> {{ $errors->first('password')}} </span>
+                    <input type="text" class="form-control" id="password" name="password"
+                        placeholder="enter password">
+                    <span class="text-danger"> {{ $errors->first('password') }} </span>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Login</button>
             </form>

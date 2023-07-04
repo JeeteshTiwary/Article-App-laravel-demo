@@ -12,7 +12,13 @@
 
 <body>
     <div class="container mt-5">
-        <div class="jumbotron col-md-6">
+        <div class="jumbotron col-md-9">
+
+            <div class="col-md-9">
+                <h2> Email Verification </h2>
+                {{ 'Enter your registered email to get otp for Authentication.' }}
+                <hr>
+            </div>
 
             @if (Session::has('msg'))
                 <div class="alert alert-danger" role="alert">
@@ -20,12 +26,9 @@
                 </div>
             @endif
 
-            <form name="" action="{{ Route('authentication.request') }}" method="post">
+            <form name="sendOTP" action="{{ Route('authentication.request') }}" method="post">
                 @csrf
                 @method('POST')
-                <div class="m-3">
-                    {{ 'Enter your registered email to get otp for Authentication.' }}
-                </div>
 
                 <div class="form-group col-md-6">
                     <label for="Email1">Email</label>

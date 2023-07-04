@@ -13,13 +13,21 @@
 <body>
     <div class="container mt-5">
         <div class="jumbotron">
-            @if (Session::has('msg'))
+
+            <div class="col-md-9">
+                <h2> OTP Verification </h2>
+                {{ 'Check your email and enter received OTP for Authentication.' }}
+                <hr>
+            </div>
+
+            @if (session('msg'))
+            {{'msg received'}}
                 <div class="alert alert-danger" role="alert">
-                    <span> <strong> Oops! </strong> {{ Session::get('msg') }} </span>
+                    <span> <strong> {{ $msg }} !! </strong> {{ 'Enter the OTP received on mail.' }} </span>
                 </div>
             @endif
-            dd({{ Route('authentication.verify') }});
-            <form class="form-inline" action="{{ Route('authentication.verify') }}" method="post">
+
+            <form class="form-inline col-md-6" action="{{ Route('authentication.verify') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="form-group mb-2">

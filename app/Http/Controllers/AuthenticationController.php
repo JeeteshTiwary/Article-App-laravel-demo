@@ -36,16 +36,15 @@ class AuthenticationController extends Controller
     function verifyOTP(Request $request)
     {
         $request->validate([
-            'otp' => 'required|numeric|min:4|max:4',
+            'otp' => 'required|numeric',
         ]);
         $user = User::where('email', $request->email)->first();
         if ($user->authentication_otp == $request->otp) {
             $user->otp_vaidated_at = date('Y-m-d H:i:s', time());
             $user->save();
-            return view('authentication.passwordCheck', ['email' => $user->email]);
+            return view('authentication.verifyPassword', ['email' => $user->email]);
         }
-        $request->session()->flash('msg', 'Invalid OTP');
-        return view('authentication.verifyOTP', ['email' => $user->email]);
+        return view('authentication.verifyOTP', ['email' => $user->email, 'msg' => 'Invalid OTP']);
     }
 
     function verifyPassword(Request $request)
@@ -54,10 +53,9 @@ class AuthenticationController extends Controller
             'password' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
-        if ($user->password == Hash::make($request->password)) {
+        if (password_verify($request->password,$user->password)) {
             return redirect('/dashboard')->with('msg', 'Your account has been authenticated successfully !!');
         }
-        $request->session()->flash('msg', 'Invalid password');
-        return view('authentication.verifyPassword', ['email' => $user->email]);
+        return view('authentication.verifyPassword', ['email' => $user->email, 'msg' => 'Invalid Password']);
     }
 }

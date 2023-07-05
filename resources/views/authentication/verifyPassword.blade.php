@@ -20,12 +20,6 @@
                 <hr>
             </div>
 
-            @if (session('msg'))
-                <div class="alert alert-danger" role="alert">
-                    <span> <strong> {{ $msg }} !! </strong> {{ 'Enter the password of your account.' }} </span>
-                </div>
-            @endif
-
             <form class="form-inline col-md-6" action="{{ Route('authentication.password') }}" method="post">
                 @csrf
                 @method('POST')
@@ -38,7 +32,8 @@
                     <label for="password" class="sr-only">Password </label>
                     <input type="text" class="form-control" id="password" name="password"
                         placeholder="enter password">
-                    <span class="text-danger"> {{ $errors->first('password') }} </span>
+                    <span class="text-danger mx-2"> {{ $errors->first('password') }} </span>
+                    <span class="text-danger mx-2"> {{ $msg }} </span>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Login</button>
             </form>

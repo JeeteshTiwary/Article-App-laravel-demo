@@ -20,14 +20,7 @@
                 <hr>
             </div>
 
-            @if (session('msg'))
-            {{'msg received'}}
-                <div class="alert alert-danger" role="alert">
-                    <span> <strong> {{ $msg }} !! </strong> {{ 'Enter the OTP received on mail.' }} </span>
-                </div>
-            @endif
-
-            <form class="form-inline col-md-6" action="{{ Route('authentication.verify') }}" method="post">
+            <form class="form-inline col-md-9" action="{{ Route('authentication.verify') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="form-group mb-2">
@@ -35,10 +28,11 @@
                     <input type="text" readonly class="form-control-plaintext" id="email" name="email"
                         value="{{ $email }}">
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
+                <div class="form-group mb-2 mx-3">
                     <label for="otp" class="sr-only">OTP: </label>
                     <input type="text" class="form-control" id="otp" name="otp" placeholder="enter otp">
-                    <span class="text-danger"> {{ $errors->first('otp') }} </span>
+                    <span class="text-danger mx-2"> {{ $errors->first('otp') }} </span>
+                    <span class="text-danger mx-2"> {{ $msg }} </span>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Verify OTP</button>
             </form>

@@ -38,6 +38,7 @@ Route::get('/authentication/request', function () {
     return view('authentication.sendOTP');
 });
 
+// Route::get('/authentication/request', 'sendOTP');
 Route::get('/authentication/verification', [AuthenticationController::class, 'verifyOTP']);
 
 Route::post('/authentication/request',[AuthenticationController::class,'sendOTP'])->name('authentication.request');

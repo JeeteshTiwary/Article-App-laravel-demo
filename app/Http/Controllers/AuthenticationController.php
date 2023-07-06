@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
-    function sendOTP(Request $request)
+    public function sendOTP(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -35,13 +35,13 @@ class AuthenticationController extends Controller
         return redirect()->back()->with('msg', 'we didn\'t found user with entered email.');
     }
 
-    function verifyOTP(Request $request)
+    public function verifyOTP(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator =  $request->validate([
             'otp' => 'required|numeric',
         ]);
 
-        if ($validator->fails()) {
+        if (!$validator) {
             return view('authentication.verifyOTP', ['email' => $request->email, 'msg' => ''])
             ->withErrors($validator);
         }
@@ -53,7 +53,7 @@ class AuthenticationController extends Controller
         return view('authentication.verifyOTP', ['email' => $user->email, 'msg' => 'Invalid OTP']);
     }
 
-    function verifyPassword(Request $request)
+    public function verifyPassword(Request $request)
     {
         $request->validate([
             'password' => 'required',

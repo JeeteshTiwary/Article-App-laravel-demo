@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        if (!Schema::hasTable('products')) {
-            Schema::create('products', function (Blueprint $table) {
-                $table->id();
-                $table->string('name');
-                $table->string('description');
-                $table->unsignedBigInteger('price');
-                $table->timestamps();
-            });
-        }
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->unsignedBigInteger('price');
+            $table->timestamps();
+        });
     }
 
     /**

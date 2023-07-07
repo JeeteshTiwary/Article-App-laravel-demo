@@ -13,3 +13,9 @@
 <body>
     <div class="container mt-5">
         <div class="jumbotron col-md-9">
+            @yield('content')
+        </div>
+    </div>
+</body>
+
+</html>

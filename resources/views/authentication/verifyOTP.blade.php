@@ -1,4 +1,6 @@
-@include('authentication.header')
+@extends('authentication.authentication')
+
+@section('content')
 
 <div class="col-md-9">
     <h2> OTP Verification </h2>
@@ -22,6 +24,4 @@
     </div>
     <button type="submit" class="btn btn-primary mb-2">Verify OTP</button>
 </form>
-</div>
-</div>
-
+@endsection

@@ -1,5 +1,6 @@
-@include('authentication.header')
+@extends('authentication.authentication')
 
+@section('content')
 <div class="col-md-9">
     <h2> Email Verification </h2>
     {{ 'Enter your registered email to get otp for Authentication.' }}
@@ -25,9 +26,8 @@
 
     <div>
         <button type="submit" class="btn btn-outline-primary mx-3">Send OTP</button>
-        <a class="btn btn-outline-warning" href="/dashboard"> Cancel </a>
+        <a class="btn btn-outline-warning" href="{{ Route('dashboard') }}"> Cancel </a>
     </div>
 </form>
-</div>
-</div>
+@endsection
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Mail\SendOTP;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\AuthenticationOTP;
 
 class AuthenticationController extends Controller
 {
@@ -22,28 +23,28 @@ class AuthenticationController extends Controller
                 $user->authentication_otp = $otp;
                 $user->save();
                 $mailData = [
-                    'title' => 'OTP for account authentication.',
-                    'body' => 'OTP: ' . $otp,
+                    'user' => $user->name,
+                    'body' => 'Here is your OTP: ' . $otp,
                 ];
 
-                \Mail::to($user->email)->send(new SendOTP($mailData));
+                $user->notify(new AuthenticationOTP($mailData));
 
                 return view('authentication.verifyOTP', ['email' => $user->email, 'msg' => '']);
             }
-            return redirect('/dashboard')->with('msg', 'Your account already has been authenticated.');
+            return redirect('dashboard')->with('msg', 'Your account already has been authenticated.');
         }
         return redirect()->back()->with('msg', 'we didn\'t found user with entered email.');
     }
 
     public function verifyOTP(Request $request)
     {
-        $validator =  $request->validate([
+        $validator = $request->validate([
             'otp' => 'required|numeric',
         ]);
 
         if (!$validator) {
             return view('authentication.verifyOTP', ['email' => $request->email, 'msg' => ''])
-            ->withErrors($validator);
+                ->withErrors($validator);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -62,7 +63,7 @@ class AuthenticationController extends Controller
         if (password_verify($request->password, $user->password)) {
             $user->authenticated_at = date('Y-m-d H:i:s', time());
             $user->save();
-            return redirect('/dashboard')->with('msg', 'Your account has been authenticated successfully !!');
+            return redirect('dashboard')->with('msg', 'Your account has been authenticated successfully !!');
         }
         return view('authentication.verifyPassword', ['email' => $user->email, 'msg' => 'Invalid Password']);
     }

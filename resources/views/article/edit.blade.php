@@ -42,11 +42,11 @@
                                             value="{{ $article['description'] }}" required>
                                         <span class="text-danger"> {{ $errors->first('description') }} </span>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-6 d-flex justify content-align-center">
                                         <label for="image" class="font-weight-bold">Featured Image</label> <br />
-                                        <input type="file" id="image" name="image"
-                                            value="{{ $article['image'] }}" required>
+                                        <input type="file" id="image" name="image" required>
                                         <span class="text-danger"> {{ $errors->first('image') }} </span>
+                                        <span> Previous image: <img src="{{ asset('articles/images/' . $article->image) }}" alt="Image" style="height:100px;width:100px;"> </span>
                                     </div>
                                     <div class="form-group form-check mx-3">
                                         <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox"

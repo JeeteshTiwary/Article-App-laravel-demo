@@ -32,14 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('article', ArticleController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/authentication/request', function () {
     return view('authentication.sendOTP');
+})->middleware(['auth', 'verified']);
+
+Route::controller(AuthenticationController::class)->prefix('authentication')->name('authentication.')->group(function () {
+    Route::get('/verification', 'verifyOTP');
+    Route::post('/request', 'sendOTP')->name('request');
+    Route::post('/verification', 'verifyOTP')->name('verify');
+    Route::post('/password', 'verifyPassword')->name('password');
 });
-
-Route::get('/authentication/verification', [AuthenticationController::class, 'verifyOTP']);
-
-Route::post('/authentication/request',[AuthenticationController::class,'sendOTP'])->name('authentication.request');
-Route::post('/authentication/verification',[AuthenticationController::class,'verifyOTP'])->name('authentication.verify');
-Route::post('/authentication/password',[AuthenticationController::class,'verifyPassword'])->name('authentication.password');

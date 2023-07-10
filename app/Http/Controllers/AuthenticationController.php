@@ -38,13 +38,15 @@ class AuthenticationController extends Controller
 
     public function verifyOTP(Request $request)
     {
-        $validator = $request->validate([
-            'otp' => 'required|numeric',
-        ]);
-
-        if (!$validator) {
+        try {
+            $request->validate([
+                'otp' => 'required|numeric',
+            ]);
+        } catch (\Throwable $th) {
+            $error = $th->getMessage();
             return view('authentication.verifyOTP', ['email' => $request->email, 'msg' => ''])
-                ->withErrors($validator);
+                ->withErrors(['error' => $error]);
+            //throw $th;
         }
 
         $user = User::where('email', $request->email)->first();

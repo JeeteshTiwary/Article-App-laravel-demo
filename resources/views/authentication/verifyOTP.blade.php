@@ -19,7 +19,7 @@
     <div class="form-group mb-2 mx-3">
         <label for="otp" class="sr-only">OTP: </label>
         <input type="text" class="form-control" id="otp" name="otp" placeholder="enter otp">
-        <span class="text-danger mx-2"> {{ $errors->first('otp') }} </span>
+        <span class="text-danger mx-2"> {{ $errors->first() }} </span>
         <span class="text-danger mx-2"> {{ $msg }} </span>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Verify OTP</button>

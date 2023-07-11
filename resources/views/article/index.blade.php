@@ -39,7 +39,7 @@
                             <td> {{ $article['title'] }} </td>
                             <td> {{ $article['description'] }} </td>
                             <td><img src="{{ asset('articles/images/' . $article->image) }}" alt="Image"
-                                    style="height:100px;width:100px;"> </td>
+                                    style="height:75px;width:120px;"> </td>
                             <td class="d-flex">
                                 <a href="{{ route('article.edit', $article->id) }}" class="mr-md-3 btn btn-outline-info">
                                     Update </a>

@@ -46,7 +46,6 @@ class AuthenticationController extends Controller
             $error = $th->getMessage();
             return view('authentication.verifyOTP', ['email' => $request->email, 'msg' => ''])
                 ->withErrors(['error' => $error]);
-            //throw $th;
         }
 
         $user = User::where('email', $request->email)->first();
@@ -58,9 +57,16 @@ class AuthenticationController extends Controller
 
     public function verifyPassword(Request $request)
     {
-        $request->validate([
-            'password' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'password' => 'required',
+            ]);
+        } catch (\Throwable $th) {
+            $error = $th->getMessage();
+            return view('authentication.verifyPassword', ['email' => $request->email, 'msg' => ''])
+                ->withErrors(['error' => $error]);
+        }
+
         $user = User::where('email', $request->email)->first();
         if (password_verify($request->password, $user->password)) {
             $user->authenticated_at = date('Y-m-d H:i:s', time());

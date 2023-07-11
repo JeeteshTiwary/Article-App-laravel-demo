@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\models\Article;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rules\File;
+use App\Http\Requests\ArticleStoreRequest;
+use App\Http\Requests\ArticleUpdateRequest;
 
 class ArticleController extends Controller
 {
@@ -19,7 +18,6 @@ class ArticleController extends Controller
         $search = $request->query('search');
         $sort = $request->query('sort', 'asc');
         $query = Article::query();
-        // dd($request);
         if ($search) {
             $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
@@ -44,15 +42,9 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ArticleStoreRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|between:3,191',
-            'description' => 'required|max:255',
-            'image' => 'required',
-            //|image',
-            'checkbox' => 'required',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
@@ -77,7 +69,7 @@ class ArticleController extends Controller
      */
     public function show(string $id)
     {
-        $data = Article::find($id);
+        $data = Article::findOrfail($id);
         return view('article.edit', ['articles' => $data]);
     }
 
@@ -86,22 +78,16 @@ class ArticleController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Article::find($id);
+        $data = Article::findOrfail($id);
         return view('article.edit', ['article' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article): RedirectResponse
+    public function update(ArticleUpdateRequest $request, Article $article): RedirectResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|between:3,191',
-            'description' => 'required|min:20',
-            'image' => 'required',
-            //|image',
-            'checkbox' => 'required',
-        ]);
+        $validated = $request->validated();
 
         $article->title = $request->input('title');
         $article->description = $request->input('description');
@@ -131,7 +117,7 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        $article = Article::find($id);
+        $article = Article::findOrfail($id);
         $path = public_path('articles/images/');
         if (file_exists(file_exists($path . '/' . $article->image))) {
             unlink($path . '/' . $article->image);

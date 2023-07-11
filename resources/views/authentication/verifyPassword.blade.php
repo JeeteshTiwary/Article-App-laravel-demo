@@ -18,7 +18,7 @@
     <div class="form-group mx-sm-3 mb-2">
         <label for="password" class="sr-only">Password </label>
         <input type="text" class="form-control" id="password" name="password" placeholder="enter password">
-        <span class="text-danger mx-2"> {{ $errors->first('password') }} </span>
+        <span class="text-danger mx-2"> {{ $errors->first() }} </span>
         <span class="text-danger mx-2"> {{ $msg }} </span>
     </div>
     <button type="submit" class="btn btn-primary mb-2">Login</button>

@@ -22,7 +22,7 @@ class ArticleController extends Controller
             $query->where('title', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
         }
-
+        
         $query->orderBy('title', $sort);
 
         $articles = $query->paginate(5);
@@ -45,23 +45,21 @@ class ArticleController extends Controller
     public function store(ArticleStoreRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
             $path = public_path('articles/images');
             $uplaod = $file->move($path, $fileName);
+            $validated['image'] = $fileName;
         }
-
-        $article = new Article();
-        $article->title = $request->title;
-        $article->description = $request->description;
-        $article->image = $fileName;
-        $article->save();
-        $request->session()->flash("title", $article->title);
+        $create = Article::create($validated);
+        if ($create) {
+            $request->session()->flash("title", $validated['title']);
+            return redirect('article');
+        }
+        $request->session()->flash("msg", 'Something went Wrong!!');
         return redirect('article');
-        // return redirect()->back()->with('success', 'Article has been added!!');
     }
 
     /**
@@ -88,26 +86,20 @@ class ArticleController extends Controller
     public function update(ArticleUpdateRequest $request, Article $article): RedirectResponse
     {
         $validated = $request->validated();
-
         $article->title = $request->input('title');
         $article->description = $request->input('description');
-
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
             $path = public_path('articles/images/');
             $file->move($path, $fileName);
-
             if ($article->image && file_exists($path . '/' . $article->image)) {
                 unlink($path . '/' . $article->image);
             }
-
             $article->image = $fileName;
         }
-
         $article->save();
-
         session()->flash("msg", "Record has been updated!!");
         return redirect('article');
     }

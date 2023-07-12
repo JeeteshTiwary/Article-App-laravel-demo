@@ -40,7 +40,7 @@ class AuthenticationController extends Controller
     {
         try {
             $request->validate([
-                'otp' => 'required|numeric',
+                'otp' => 'required|numeric|min_digits:4|max_digits:4',
             ]);
         } catch (\Throwable $th) {
             $error = $th->getMessage();

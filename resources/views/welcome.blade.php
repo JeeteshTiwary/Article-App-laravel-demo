@@ -1,18 +1,10 @@
 <x-header page="welcome" />
-<x-navbar />
-
-@php $value = true; @endphp
-@if($value)
 <center>
     <h1> Welcome page </h1>
-
-    <a href="{{URL::to('/about')}}" > about us </a>
-    <div class="mx-5"> 
-    <a href="https://google.com"> google </a>
-</div>
+    <div class="d-flex justify-content content-align-center col-md-3">
+        <a href="{{Route('register')}}"> <button class="btn btn-info"> Register </button> </a>
+        <a href="{{Route('login')}}"> <button class="btn btn-primary mx-5"> Login </button> </a>
+    </div>
 </center>
-@else
-    Something went wrong
-@endif
 
 <x-footer />

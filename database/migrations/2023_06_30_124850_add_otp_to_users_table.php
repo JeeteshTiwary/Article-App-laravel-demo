@@ -10,12 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->unsignedBigInteger('price');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('authentication_otp');
         });
     }
 
@@ -24,6 +20,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('product');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('authentication_otp');
+        });
     }
 };
